@@ -557,6 +557,17 @@ sc_input_manager_process_key(struct sc_input_manager *im,
         return;
     }
 
+    // Handle fullscreen toggle keys without modifiers
+    if (video && !repeat && down) {
+        switch (sdl_keycode) {
+            case SDLK_ESCAPE:
+            case SDLK_RETURN:
+            case SDLK_SPACE:
+                sc_screen_toggle_fullscreen(im->screen);
+                return;
+        }
+    }
+
     if (!im->kp || paused) {
         return;
     }
@@ -796,6 +807,12 @@ sc_input_manager_process_mouse_button(struct sc_input_manager *im,
         if (outside) {
             if (down) {
                 sc_screen_resize_to_fit(im->screen);
+            }
+            return;
+        } else {
+            // Double-click inside the video area toggles fullscreen
+            if (down) {
+                sc_screen_toggle_fullscreen(im->screen);
             }
             return;
         }
