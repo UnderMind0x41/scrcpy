@@ -9,7 +9,12 @@ echo "==== Сборка scrcpy для Linux ===="
 rm -rf build
 
 # Скачивание обновлений репозитория https://github.com/UnderMind0x41/scrcpy
-git clone https://github.com/UnderMind0x41/scrcpy.git
+# git clone https://github.com/UnderMind0x41/scrcpy.git
+
+# Скачивание обновлений репозитория
+git fetch
+git checkout
+git pull
 
 # Скачивание сервера
 if [ ! -f "scrcpy-server" ]; then
